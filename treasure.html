@@ -1,0 +1,93 @@
+
+<!DocType html>
+<html>
+<head>
+<title>
+Treasure Hunt
+</title>
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script> 
+    <img id="map" width="800" height="800" src="http://nostarch.com/images/treasuremap.png"> 
+    <p id="distance"> </p>
+    <h1 id="win">Treasure</h1>
+   
+
+<script>
+    var getRandomNumber=function(size)
+    {
+        return Math.floor(Math.random()*size);
+    }
+    //event is predefined object which has built-in information about the player's click
+    var getDistance=function(event,target){
+        console.log(target.x);
+        console.log(target.y);
+        var diffX=event.offsetX -target.x;
+        var diffY=event.offsetY-target.y;
+        console.log(diffX,diffY);
+        return Math.sqrt(diffX * diffX)+(diffY * diffY);
+    }
+    var remainingDistanceHint =function (distance){
+        if(distance <10)
+        return "BoilingHot";
+        else if(distance <20)
+        return "Really Hot";
+        else if(distance < 40 )
+        return "Hot";
+        else if(distance<80)
+        return "Warm";
+        else if(distance <160)
+        return "Cold";
+        else if(distance <320)
+        return "Really Cold";
+        else
+        return "Freezing!!";
+        
+    }
+    var offSet=10;
+function move()
+    {  
+        $("#win").offset({left : offSet});
+        offSet++;
+        if (offSet > 800)
+        offSet=0;
+         //$("#alert").offset({top: topOffSet});
+        
+    }
+    setInterval(move,10);
+    
+    var width=400;
+    var height=400;
+    var  target={
+        x: getRandomNumber(width),
+        y:getRandomNumber(height)
+    };
+    var count=0;
+    var remianingClicks=5;
+    setInterval(move,30);
+    $("#map").click(function (event){
+        count++;
+        remianingClicks--;
+        
+        if(count >5){
+        alert("Game Over");
+        return;
+        }
+        console.log("Reamianing Clicks "+remianingClicks);
+        distance=getDistance(event,target);
+        console.log(distance); 
+        $("#distance").text(remainingDistanceHint(distance));
+    
+        if(distance < 8)
+        {   
+            alert("You took "+count+ "clicks to find the treasure");
+        alert( "You Won!!");
+        
+        }
+      
+    });
+  
+
+</script>
+</body>
+</html>
