@@ -1,0 +1,78 @@
+
+<!DocType html>
+<html>
+<head>
+<title>
+HangMan Game
+</title>
+</head>
+<body>
+
+<script>
+//randomly generate a word from array
+//calculate the length of the word and create that many blank spaces in array and display the progress
+//ask user to guess and validate the guess and show the progress
+//if he find the word congratulate him.
+words=["flipkart","smartphone","mango","carrot","book","pen","god","godess","devil","eternity","mental","esctacy","kill"];
+
+function pickARandomWord(element)
+{
+    return element[Math.floor(Math.random()* element.length)];
+}
+
+var word=pickARandomWord(words);
+alert(word);
+var answerArray=[];    
+for(var i=0; i<word.length; i++)
+{
+    answerArray[i]="_";
+}
+
+function setUpAnswerArray(){
+    alert(answerArray.join(" "));
+}
+setUpAnswerArray();
+var guess;
+
+function getGuess()
+       {
+        return guess=prompt("Guess the letters to find word,if you want to quit click '*' ");
+        if(guess.toLowerCase()=='*')
+        return;
+       }
+
+function Congratulate(){
+   
+        alert("Congratulations you found the word correct word that is "+ word);
+    }
+
+    var remainingLetters=word.length;
+    while(remainingLetters >0){
+       
+       getGuess();
+if(guess ===null || guess=="") alert("YOu entered null it's invalid try with correct guess!!");
+else if(guess.length != 1)
+alert("Enter single character only.....");
+   else{
+       var correct_guess=false;
+    for(var j=0;j<word.length;j++)
+    {
+        if(word[j]==guess)
+        {
+        alert("You guessed Correctly....");
+        answerArray[j]=guess;
+        setUpAnswerArray();//show the progress
+        remainingLetters--;
+        correct_guess=true;
+        }
+    }
+    if(!correct_guess)
+    alert("Try to guess Correclty!!");
+}//end of game loop
+}//end of else
+
+Congratulate();
+
+</script>
+</body>
+</html>
