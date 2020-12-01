@@ -1,0 +1,86 @@
+
+<!DocType html>
+<html>
+<head>
+<title>
+programming challenge 2 in ch-10
+</title>
+</head>
+<body>
+    <h1> Hello World!!</h1>
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script> 
+<script>
+var offset=0;
+var direction="right";
+//to take to 0,0 coordinates below line is written
+$("#heading").offset({ left: offset, top: offset });
+function moveSquare()
+{   if(direction === "right")
+    {
+        $("h1").offset({left : offset});
+        offset++;
+        
+        if(offset>200)
+        {
+            offset=0;
+            direction="down";
+        }
+    }
+    else if(direction === "down")
+    {
+        $("h1").offset({top : offset});
+        offset++;
+        if(offset>200)
+        {
+            offset=200;
+            direction="left";
+        }
+    }    
+    
+    else if(direction === "left")
+    {//if we want to move towards right use left property in offset function as argument but you decrement, if you want 
+        //to move left then increment offset.
+
+        $("h1").offset({left : offset});
+        offset--;
+        if(offset<0)
+        {
+            offset=200;
+            direction="up";
+        }
+    } 
+    else
+    { //if we want to move towards up use top property in offset function as argument but you decrement if you want 
+        //to move left then increment offset.
+
+        $("h1").offset({top : offset});
+        offset--;
+        if(offset<0)
+        {
+            offset=0;
+            direction="right";
+        }
+    }   
+};
+//if click on header stop moving the header
+/*var stop=setInterval(moveSquare,30);
+function h(event){
+
+    clearInterval(stop);
+};
+$("h1").click(h);
+*/
+setInterval(moveSquare,5);  
+var clickCount=0;
+function h(event){
+    
+    var stop=setInterval(moveSquare,10);  
+    clickCount++;
+    console.log(clickCount);
+    if(clickCount >4)
+    $("h1").text("You Win!!");
+};
+$("h1").click(h);
+</script>
+</body>
+</html>
